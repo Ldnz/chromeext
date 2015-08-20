@@ -1,0 +1,49 @@
+
+.stop-all{
+	text-align: right;
+	margin-bottom: 10px;
+}
+.tab-title {
+	margin-right: 25px;
+}
+.tab-list {
+    list-style-type: none;
+    padding: 0;		
+    width: 215px;				
+}
+.tab {
+	margin-top: 5px; 
+}
+.tab-list li:hover{
+	cursor: pointer;
+}
+
+.tab-ico {
+	width: 16px;
+	height: 16px;
+	vertical-align: middle;
+	padding-right: 5px;
+}
+
+.play-ico, .prev-ico, .next-ico {
+	width: 24px;
+	height: 24px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.prev-ico {
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/track_back.png');
+}
+
+.play-ico {
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/play.png');
+}
+
+.pause-ico {
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/pause_circle.png');
+}
+
+.next-ico {
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/track_forward.png');
+}
