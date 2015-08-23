@@ -138,9 +138,13 @@
     };
 
     self.Vk = {
-        prevTrack: function (tabId) {            
+        prevTrack: function (tabId) {  
+            
+            var code = 'var scriptEl = document.createElement("script"), code = "var a = function(){audioPlayer.prevTrack();};a();";scriptEl.type="text/javascript"; scriptEl.text = code;document.getElementsByTagName("html")[0].appendChild(scriptEl);'
+           
+
             chrome.tabs.executeScript(tabId, {code:
-                'console.log(audioPlayer);'         
+                code        
             });   
         },
 
