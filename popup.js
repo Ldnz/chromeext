@@ -1,5 +1,5 @@
 (function MutePopup() {
-    self = this;
+    var self = this;
    
 
     self.config = {
@@ -115,8 +115,9 @@
     self.vkAudioControlInit = function()
     {
         var prevBtns = document.getElementsByClassName('prev-ico'),
-            playBtns = $('.play-ico'),
-            nextBtns = $('.next-ico');
+            nextBtns = document.getElementsByClassName('next-ico'),
+            playBtns = document.getElementsByClassName('play-ico'),
+            pauseBtns = document.getElementsByClassName('pause-ico');
             
               
 
@@ -127,46 +128,89 @@
 
 
         $(prevBtns).each(function() {
-            // console.log(this);
+            
             var tabId = $(this).parent('li').data('tab-id'); 
 
             this.addEventListener('click', function() { 
-                    Vk.prevTrack(tabId);
+                self.Vk.prevTrack(tabId);
+            });
+        });
+
+        $(nextBtns).each(function() {
+           
+            var tabId = $(this).parent('li').data('tab-id'); 
+
+
+            this.addEventListener('click', function() { 
+                self.Vk.nextTrack(tabId);
+            });
+        });
+
+        $(playBtns).each(function() {
+           
+            var listEl = $(this).parent('li'),
+                tabId = listEl.data('tab-id');                        
+
+
+            this.addEventListener('click', function() { 
+                self.Vk.playTrack(tabId);
+                
+                listEl.children('.play-ico').addClass('pause-ico');                
+                
+                // $(this).addClass('pause-ico');
+
+                // this.removeEventListener('click');
+                
+                this.addEventListener('click', function() {
+                    self.Vk.pauseTrack(tabId);
+                });
+            });
+        });
+
+        $(pauseBtns).each(function() {
+           
+            var listEl = $(this).parent('li'),
+                tabId = listEl.data('tab-id');  
+
+
+            this.addEventListener('click', function() { 
+                self.Vk.pauseTrack(tabId);
+                listEl.children('.play-ico').removeClass('pause-ico');
             });
         });
 
     };
 
     self.Vk = {
-        prevTrack: function (tabId) {  
-            
-            var code = 'var scriptEl = document.createElement("script"), code = "var a = function(){audioPlayer.prevTrack();};a();";scriptEl.type="text/javascript"; scriptEl.text = code;document.getElementsByTagName("html")[0].appendChild(scriptEl);'
-           
-
+        prevTrack: function (tabId) { 
+            var code = 'var scriptEl = document.createElement("script"), code = "var a = function(){audioPlayer.prevTrack();};a();", cuurentScriptEl = document.getElementById("vk_audio_player_control");scriptEl.type="text/javascript"; scriptEl.text = code;scriptEl.setAttribute("id", "vk_audio_player_control");if(undefined!=cuurentScriptEl){cuurentScriptEl.remove();}document.getElementsByTagName("html")[0].appendChild(scriptEl);'
             chrome.tabs.executeScript(tabId, {code:
                 code        
             });   
         },
 
-        nextTrack: function() {
+        nextTrack: function(tabId) {
+            var code = 'var scriptEl = document.createElement("script"), code = "var a = function(){audioPlayer.nextTrack();};a();", cuurentScriptEl = document.getElementById("vk_audio_player_control");scriptEl.type="text/javascript"; scriptEl.text = code;scriptEl.setAttribute("id", "vk_audio_player_control");if(undefined!=cuurentScriptEl){cuurentScriptEl.remove();}document.getElementsByTagName("html")[0].appendChild(scriptEl);'
             chrome.tabs.executeScript(tabId, {code:
-                'audioPlayer.nextTrack();'         
-            });
+                code        
+            }); 
         },
 
-        pauseTrack: function() {
+        pauseTrack: function(tabId) {
+            console.log('pause');
+            var code = 'var scriptEl = document.createElement("script"), code = "var a = function(){audioPlayer.pauseTrack();};a();", cuurentScriptEl = document.getElementById("vk_audio_player_control");scriptEl.type="text/javascript"; scriptEl.text = code;scriptEl.setAttribute("id", "vk_audio_player_control");if(undefined!=cuurentScriptEl){cuurentScriptEl.remove();}document.getElementsByTagName("html")[0].appendChild(scriptEl);'
             chrome.tabs.executeScript(tabId, {code:
-                'audioPlayer.pauseTrack()'         
-            });
+                code        
+            }); 
         },
 
-        playTrack: function() {
+        playTrack: function(tabId) {
+            console.log('play');
+            var code = 'var scriptEl = document.createElement("script"), code = "var a = function(){audioPlayer.playTrack();};a();", cuurentScriptEl = document.getElementById("vk_audio_player_control");scriptEl.type="text/javascript"; scriptEl.text = code;scriptEl.setAttribute("id", "vk_audio_player_control");if(undefined!=cuurentScriptEl){cuurentScriptEl.remove();}document.getElementsByTagName("html")[0].appendChild(scriptEl);'
             chrome.tabs.executeScript(tabId, {code:
-                'audioPlayer.playTrack()'         
-            });
+                code        
+            }); 
         }
-
-
 
     };
   
