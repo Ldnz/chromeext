@@ -1,4 +1,11 @@
 (function MutePopup() {
+
+
+
+
+
+
+
     var self = this;
    
 
@@ -8,6 +15,10 @@
         'https://www.youtube.com'   : getMuteYoutubeCode(),
         'https://vk.com/'           : getMuteVkCode()
     };
+
+ var displayPlay = 'inline-block', displayPause = 'inline-block';
+    self.displayPlay = 'inline-block';
+    self.displayPause = 'inline-block';
 
     self.init = function() {
         
@@ -81,12 +92,29 @@
                     if (tabUrl.indexOf(rootUrl) !== -1)
                     {                        
                         if (rootUrl == 'https://vk.com/')
-                        {
+                        {            
+                                           
+                            chrome.tabs.executeScript(tabs[i].id, 
+                                { 
+                                    code: '(function(){var elMusic = document.getElementsByClassName("playing")[0], playerState = false; if(undefined != elMusic) {playerState = true;} return playerState;})()'
+                                }, 
+                                function (playerState) {
+                                    console.log(playerState[0]);
+                                    if (playerState[0]) {                                        
+                                        displayPlay = "none";
+                                        console.log('displayPlay');
+                                    } else {
+                                        displayPause = "none";
+                                        console.log(displayPause);
+                                    }
+                                }
+                            );
+                            console.log(displayPause);
 
                             var listEl = $('<li>', {
                                 html:'<img class="tab-ico" src="' + tabs[i].favIconUrl + '" />' + 
                                     '<span class="tab-title">' + tabs[i].title.substring(0, 15) + '...</span>' +
-                                    '<span class="prev-ico">&nbsp;</span><span class="play-ico"></span><span class="next-ico"></span>'
+                                    '<span class="prev-ico"></span><span class="play-ico" style="display:'+displayPlay+';"></span><span class="pause-ico"style="display:'+displayPause+';"></span><span class="next-ico"></span>'
                                     , 
                                 'data-tab-id' : tabs[i].id, 
                                 'class' : 'tab'
@@ -155,15 +183,13 @@
             this.addEventListener('click', function() { 
                 self.Vk.playTrack(tabId);
                 
-                listEl.children('.play-ico').addClass('pause-ico');                
+                listEl.children('.play-ico').style.display = 'none';
+                listEl.children('.pause-ico').style.display = 'block';                
+                               
                 
-                // $(this).addClass('pause-ico');
-
-                // this.removeEventListener('click');
-                
-                this.addEventListener('click', function() {
-                    self.Vk.pauseTrack(tabId);
-                });
+                // this.addEventListener('click', function() {
+                //     self.Vk.pauseTrack(tabId);
+                // });
             });
         });
 
@@ -175,7 +201,8 @@
 
             this.addEventListener('click', function() { 
                 self.Vk.pauseTrack(tabId);
-                listEl.children('.play-ico').removeClass('pause-ico');
+                listEl.children('.pause-ico').style.display = 'none';
+                listEl.children('.play-ico').style.display = 'block';
             });
         });
 
@@ -205,7 +232,6 @@
         },
 
         playTrack: function(tabId) {
-            console.log('play');
             var code = 'var scriptEl = document.createElement("script"), code = "var a = function(){audioPlayer.playTrack();};a();", cuurentScriptEl = document.getElementById("vk_audio_player_control");scriptEl.type="text/javascript"; scriptEl.text = code;scriptEl.setAttribute("id", "vk_audio_player_control");if(undefined!=cuurentScriptEl){cuurentScriptEl.remove();}document.getElementsByTagName("html")[0].appendChild(scriptEl);'
             chrome.tabs.executeScript(tabId, {code:
                 code        

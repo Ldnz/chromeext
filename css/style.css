@@ -1,15 +1,22 @@
-
-.stop-all{
+.hidden {
+	display: none !important;
+}
+.stop-all {
 	text-align: right;
 	margin-bottom: 10px;
 }
 .tab-title {
-	margin-right: 25px;
+	display: inline-block;
+	width: 135px;
+	 margin-right: 10px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
 }
 .tab-list {
     list-style-type: none;
     padding: 0;		
-    width: 215px;				
+    width: 270px;
 }
 .tab {
 	margin-top: 5px; 
@@ -25,7 +32,7 @@
 	padding-right: 5px;
 }
 
-.play-ico, .prev-ico, .next-ico {
+.play-ico, .pause-ico, .prev-ico, .next-ico {
 	width: 24px;
 	height: 24px;
 	display: inline-block;

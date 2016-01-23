@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
 
-  "name": "Mute tab (Beta)",
-  "description": "Mute tab",
-  "version": "0.0.1",
+  "name": "Music Control (Beta)",
+  "description": "Music Control",
+  "version": "0.0.2",
 
   "browser_action": {
     "default_icon": "icon.png",
