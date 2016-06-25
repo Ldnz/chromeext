@@ -12,6 +12,7 @@
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
+	vertical-align: middle;
 }
 .tab-list {
     list-style-type: none;
@@ -40,17 +41,17 @@
 }
 
 .prev-ico {
-	background-image: url('chrome-extension://__MSG_@@extension_id__/images/track_back.png');
+	background-image: url('chrome-extension://__MSG_@@extension_id__/img/previous_3-24.png');
 }
 
 .play-ico {
-	background-image: url('chrome-extension://__MSG_@@extension_id__/images/play.png');
+	background-image: url('chrome-extension://__MSG_@@extension_id__/img/play-24.png');
 }
 
 .pause-ico {
-	background-image: url('chrome-extension://__MSG_@@extension_id__/images/pause_circle.png');
+	background-image: url('chrome-extension://__MSG_@@extension_id__/img/pause-24.png');
 }
 
 .next-ico {
-	background-image: url('chrome-extension://__MSG_@@extension_id__/images/track_forward.png');
+	background-image: url('chrome-extension://__MSG_@@extension_id__/img/next_3-24.png');
 }

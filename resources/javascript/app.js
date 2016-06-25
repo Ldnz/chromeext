@@ -1,13 +1,12 @@
 (function app() {
 
-	'use strict';
-
 	var App = function () {
 		this.tabs = null;
 		this.menuEl = $('#tab-list');
 		this.supported = {
 			'music.yandex' : YmPlayer,
-			'vk.com' : VkPlayer
+			'vk.com' : VkPlayer,
+			'youtube.com' : YoutubePlayer
 		};
 	};
 
@@ -118,51 +117,48 @@
 	 * */
 	var Player = function (tab) {
 		this.tabId = tab.id;
+
+		this._exec = function (code) {
+			chrome.tabs.executeScript(this.tabId, { code:
+				code
+			});
+		};
 	};
-	Player.prototype.play = function () {
-		this._exec(this._code);
-	};
-	Player.prototype.pause = function () {
-		this._exec(this._code);
-	};
+	Player.prototype.play = function () { return false; };
+	Player.prototype.pause = function () { return false; };
 	Player.prototype.prev = function () { return false; };
 	Player.prototype.next = function () { return false; };
 
 
-	var VkPlayer = function (tab) {
+
+	var VkPlayer = function () {
 		this.tabId = null;
 	};
 
 	VkPlayer.prototype.play = function () {
-		var code = 'var scriptEl = document.createElement("script"), code = "var a = function(){audioPlayer.playTrack();};a();", cuurentScriptEl = document.getElementById("vk_audio_player_control");scriptEl.type="text/javascript"; scriptEl.text = code;scriptEl.setAttribute("id", "vk_audio_player_control");if(undefined!=cuurentScriptEl){cuurentScriptEl.remove();}document.getElementsByTagName("html")[0].appendChild(scriptEl);';
+		//var code = 'var result=false; var scriptEl = document.createElement("script"), code = "var a = function(){audioPlayer.playTrack();};a();", cuurentScriptEl = document.getElementById("vk_audio_player_control");scriptEl.type="text/javascript"; scriptEl.text = code;scriptEl.setAttribute("id", "vk_audio_player_control");if(undefined!=cuurentScriptEl){cuurentScriptEl.remove();}document.getElementsByTagName("html")[0].appendChild(scriptEl); result';
+		var code = 'var playBtn = document.getElementById("head_play_btn"); if (undefined != playBtn) {playBtn.click();}';
 
-		chrome.tabs.executeScript(this.tabId, {code:
-		code
-		});
+		this._exec(code);
 	};
 
 	VkPlayer.prototype.pause = function () {
-		var code = 'var scriptEl = document.createElement("script"), code = "var a = function(){audioPlayer.pauseTrack();};a();", cuurentScriptEl = document.getElementById("vk_audio_player_control");scriptEl.type="text/javascript"; scriptEl.text = code;scriptEl.setAttribute("id", "vk_audio_player_control");if(undefined!=cuurentScriptEl){cuurentScriptEl.remove();}document.getElementsByTagName("html")[0].appendChild(scriptEl);';
+		//var code = 'var scriptEl = document.createElement("script"), code = "var a = function(){audioPlayer.pauseTrack();};a();", cuurentScriptEl = document.getElementById("vk_audio_player_control");scriptEl.type="text/javascript"; scriptEl.text = code;scriptEl.setAttribute("id", "vk_audio_player_control");if(undefined!=cuurentScriptEl){cuurentScriptEl.remove();}document.getElementsByTagName("html")[0].appendChild(scriptEl);';
+		var code = 'var playBtn = document.getElementById("head_play_btn"); if (undefined != playBtn) {playBtn.click();}';
 
-		chrome.tabs.executeScript(this.tabId, {code:
-		code
-		});
+		this._exec(code);
 	};
 
 	VkPlayer.prototype.prev = function () {
 		var code = 'var scriptEl = document.createElement("script"), code = "var a = function(){audioPlayer.prevTrack();};a();", cuurentScriptEl = document.getElementById("vk_audio_player_control");scriptEl.type="text/javascript"; scriptEl.text = code;scriptEl.setAttribute("id", "vk_audio_player_control");if(undefined!=cuurentScriptEl){cuurentScriptEl.remove();}document.getElementsByTagName("html")[0].appendChild(scriptEl);';
 
-		chrome.tabs.executeScript(this.tabId, {code:
-		code
-		});
+		this._exec(code);
 	};
 
 	VkPlayer.prototype.next = function () {
 		var code = 'var scriptEl = document.createElement("script"), code = "var a = function(){audioPlayer.nextTrack();};a();", cuurentScriptEl = document.getElementById("vk_audio_player_control");scriptEl.type="text/javascript"; scriptEl.text = code;scriptEl.setAttribute("id", "vk_audio_player_control");if(undefined!=cuurentScriptEl){cuurentScriptEl.remove();}document.getElementsByTagName("html")[0].appendChild(scriptEl);'
 
-		chrome.tabs.executeScript(this.tabId, {code:
-		code
-		});
+		this._exec(code);
 	};
 
 	var YmPlayer = function () {
@@ -172,33 +168,54 @@
 	YmPlayer.prototype.play = function () {
 		var code = 'var el = document.getElementsByClassName("player-controls__btn_play")[0];if (undefined != el){el.click();}';
 
-		chrome.tabs.executeScript(this.tabId, {code:
-		code
-		});
+		this._exec(code);
 	};
 
 	YmPlayer.prototype.pause = function () {
 		var code = 'var el = document.getElementsByClassName("player-controls__btn_pause")[0];if (undefined != el){el.click();}';
 
-		chrome.tabs.executeScript(this.tabId, {code:
-		code
-		});
+		this._exec(code);
 	};
 
 	YmPlayer.prototype.prev = function () {
 		var code = 'var el = document.getElementsByClassName("player-controls__btn_prev")[0];if (undefined != el){el.click();}';
 
-		chrome.tabs.executeScript(this.tabId, {code:
-		code
-		});
+		this._exec(code);
 	};
 
 	YmPlayer.prototype.next = function () {
 		var code = 'var el = document.getElementsByClassName("player-controls__btn_next")[0];if (undefined != el){el.click();}';
 
-		chrome.tabs.executeScript(this.tabId, {code:
-		code
-		});
+		this._exec(code);
+	};
+
+
+	var YoutubePlayer = function () {
+		this.tabId = null;
+	};
+
+	YoutubePlayer.prototype.play = function () {
+		var code = 'var el = document.getElementsByClassName("ytp-play-button")[0];if (undefined != el){el.click();}';
+
+		this._exec(code);
+	};
+
+	YoutubePlayer.prototype.pause = function () {
+		var code = 'var el = document.getElementsByClassName("ytp-play-button")[0];if (undefined != el){el.click();}';
+
+		this._exec(code);
+	};
+
+	YoutubePlayer.prototype.prev = function () {
+		var code = 'var el = document.getElementsByClassName("ytp-prev-button")[0];if (undefined != el){el.click();}';
+
+		this._exec(code);
+	};
+
+	YoutubePlayer.prototype.next = function () {
+		var code = 'var el = document.getElementsByClassName("ytp-next-button")[0];if (undefined != el){el.click();}';
+
+		this._exec(code);
 	};
 
 	var makePlayer = function (supported, tab) {
