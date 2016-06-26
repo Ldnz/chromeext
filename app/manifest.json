@@ -15,8 +15,10 @@
     "https://ajax.googleapis.com/*",    
     "https://music.yandex.by/*",
     "https://music.yandex.ru/*",
+    "https://radio.yandex.by/*",
+    "https://radio.yandex.ru/*",
     "https://vk.com/*",
-    "http://vk.com/*",    
+    "https://new.vk.com/*",
     "https://www.youtube.com/*"
   ],
 

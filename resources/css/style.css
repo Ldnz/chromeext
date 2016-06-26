@@ -33,7 +33,7 @@
 	padding-right: 5px;
 }
 
-.play-ico, .pause-ico, .prev-ico, .next-ico {
+.empty-ico, .play-ico, .pause-ico, .prev-ico, .next-ico {
 	width: 24px;
 	height: 24px;
 	display: inline-block;
