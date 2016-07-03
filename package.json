@@ -14,7 +14,8 @@
     "gulp-rename": "^1.2.2",
     "gulp-require-file": "^1.1.2",
     "gulp-ruby-sass": "^2.0.6",
-    "gulp-watch": "^4.3.8"
+    "gulp-watch": "^4.3.8",
+    "gulp-file-include": "^0.13.7"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

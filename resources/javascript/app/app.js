@@ -20,13 +20,17 @@ class App {
 			self.createMenu();
 		});
 
+		this.buildSettingsPage();
 		this.bindAppEvents();
+	}
+
+	buildSettingsPage() {
+		$("#go-to-tab").prop("checked", config('enableTabTransition'));
 	}
 
 	createMenu() {
 		var tabsLength = this.tabs.length,
 			supportedTabsCount = 0;
-
 
 		if (!tabsLength) {
 			return false;
@@ -38,7 +42,7 @@ class App {
 			}
 
 			var el = this.createMenuElement(tab);
-			var player = makePlayer(this.supported, tab);
+			var player = this.makePlayer(tab);
 
 			this.bindControlEvents(player, el);
 
@@ -157,7 +161,17 @@ class App {
 			chrome.tabs.update(tab.id, { selected: true });
 			chrome.windows.update(tab.windowId, { focused: true });
 		});
+	}
 
+	makePlayer(tab) {
+		for (var item in this.supported) {
+			if (tab.url.indexOf(item) > -1) {
+				var Player = this.supported[item]['class'];
+				break;
+			}
+		}
+
+		return new Player(tab);
 	}
 
 	bindControlEvents(player, el) {
@@ -182,47 +196,42 @@ class App {
 			self.toggleMute(el);
 		});
 		$(el).find('.tab-title').on('click', () => {
-			this.setActiveTab($(el).data('tab-id'));
+			if (config('enableTabTransition')) {
+				this.setActiveTab($(el).data('tab-id'));
+			}
 		});
 	};
 
 	bindAppEvents() {
-		$(".settings-ico").click(() => {
+		var self = this;
+
+		$(".settings-ico").on('click', () => {
 			var appHeight = this.container.find('#app').height();
 			this.container.find('#settings').css('height', appHeight);
 			this.container.animate({ scrollLeft: this.container.width() }, 400);
 		});
-		$(".go-back").click(() => {
+		$(".go-back").on('click', () => {
 			this.container.animate({ scrollLeft: "-" + this.container.width() }, 400);
+		});
+
+		$('#go-to-tab').on('click', function() {
+			localStorage.setItem('tab-transition', this.checked);
+			self.menuEl.empty();
+			self.createMenu();
 		});
 	}
 }
-
-var makePlayer = function (supported, tab) {
-	for (var item in supported) {
-		if (tab.url.indexOf(item) > -1) {
-			var Player = supported[item]['class'];
-			break;
-		}
-	}
-
-	return new Player(tab);
-};
-
 
 $(document).ready( () => {
 	var app = new App();
 	app.init();
 
-	// Standard Google Universal Analytics code
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://ssl.google-analytics.com/ga.js','ga'); // Note: https protocol here
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-	ga('create', 'UA-80236300-1', 'auto');
+	ga('create', 'UA-80236300-1', 'none');
 	ga('set', 'checkProtocolTask', null);
-	ga('require', 'displayfeatures');
-	ga('send', 'pageview', '/popup.html');
-
+	ga('send', 'pageview');
 });
