@@ -5,4 +5,8 @@
 @@include('./players/Vk.js');
 @@include('./players/NewVk.js');
 @@include('./players/Youtube.js');
+@@include('./players/SoundCloud.js');
+@@include('./players/Twitch.js');
+@@include('./players/PlayGoogle.js');
+@@include('./players/Deezer.js');
 @@include('./app.js');

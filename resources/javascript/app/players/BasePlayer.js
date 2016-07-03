@@ -1,11 +1,12 @@
 class BasePlayer {
     constructor(tab) {
-        this.tabId = tab.id;
+        this.tab = tab;
+        this.muted = tab.mutedInfo.muted;
     }
 
     _exec(code) {
         code = code.replace();
-        chrome.tabs.executeScript(this.tabId, { code:
+        chrome.tabs.executeScript(this.tab.id, { code:
             code
         });
     }
@@ -14,4 +15,11 @@ class BasePlayer {
     pause() { return false; }
     prev() { return false; }
     next() { return false; }
+    mute() {
+        chrome.tabs.update(this.tab.id, {
+            muted: !this.muted
+        });
+
+        this.muted = !this.muted;
+    }
 }

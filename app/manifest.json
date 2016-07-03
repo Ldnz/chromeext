@@ -1,9 +1,10 @@
 {
   "manifest_version": 2,
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
 
-  "name": "Music Control (Beta)",
+  "name": "Music Control",
   "description": "Music Control",
-  "version": "0.0.2",
+  "version": "0.0.5",
 
   "browser_action": {
     "default_icon": "icon.png",
@@ -19,7 +20,11 @@
     "https://radio.yandex.ru/*",
     "https://vk.com/*",
     "https://new.vk.com/*",
-    "https://www.youtube.com/*"
+    "https://www.youtube.com/*",
+    "https://www.soundCloud.com/*",
+    "https://www.twitch.com/*",
+    "https://play.google.com/*",
+    "https://deezer.com/*"
   ],
 
   "web_accessible_resources": [

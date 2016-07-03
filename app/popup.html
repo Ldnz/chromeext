@@ -7,9 +7,33 @@
     <meta charset="UTF-8">
     <title></title>
 </head>
-<body>    	
-    <ul class="tab-list" id="tab-list">
-    	<!--<li class="stop-all" id="stop-all">stop all</li>-->
-    </ul>
+<body>
+    <div class="container">
+        <div id="app" class="panel">
+            <div class="content">
+                <div class="not-found" style="display: none;">
+                    <p>Среди открытых вкалдках поддерживаемых сервисов не найдено. :(</p>
+                    <p>Главное терпение :)</p>
+                </div>
+                <ul class="tab-list" id="tab-list"></ul>
+            </div>
+            <div class="footer-bar">
+                <span class="ico settings-ico"></span>
+            </div>
+        </div>
+        <div id="settings" class="panel">
+            <div class="content">
+                <ul class="settings-list">
+                    <li class="item">
+                        <label for="go-to-tab">Переход к вкладке по клику на название </label>
+                        <input type="checkbox" id="go-to-tab"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer-bar">
+                <span class="ico back-ico go-back"></span>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
