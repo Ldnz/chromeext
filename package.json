@@ -4,10 +4,12 @@
   "author": "denis.luschitsky@gmail.com",
   "description": "",
   "scripts": {
-    "dev"  : "npm run clear && NODE_ENV=development webpack --watch --colors",
-    "prod" : "npm run clear && NODE_ENV=production webpack --colors",
+    "dev": "npm run clear && NODE_ENV=development webpack --watch --colors",
+    "prod": "npm run clear && NODE_ENV=production webpack --colors",
     "clear": "rm -rf ./build",
-    "test" : "echo \"Error: no test specified\" && exit 1"
+    "lint": "node_modules/.bin/eslint ./src --ext .js --ext .jsx --ignore-path .gitignore --cache",
+    "lint:fix": "npm run lint -- --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
     "jquery": "^3.0.0",
@@ -21,6 +23,11 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-root-import": "^3.2.2",
     "copy-webpack-plugin": "^3.0.1",
+    "eslint": "^2.13.1",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-import": "^1.10.2",
+    "eslint-plugin-jsx-a11y": "^1.5.5",
+    "eslint-plugin-react": "^5.2.2",
     "webpack": "^1.13.1"
   },
   "repository": {
