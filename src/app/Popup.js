@@ -182,8 +182,11 @@ export default class Popup {
       player.mute();
       self.toggleMute(el);
     });
+
     $(el).find('.tab-title').on('click', () => {
-      this.setActiveTab($(el).data('tab-id'));
+      if (config('enableTabTransition')) {
+        this.setActiveTab($(el).data('tab-id'));
+      }
     });
   };
 
@@ -200,6 +203,12 @@ export default class Popup {
 
     $(".go-back").click(() => {
       this.container.animate({ scrollLeft: "-" + this.container.width() }, 400);
+    });
+
+    $('#go-to-tab').on('click', function() {
+      localStorage.setItem('tab-transition', this.checked);
+      self.menuEl.empty();
+      self.createMenu();
     });
   }
 }
