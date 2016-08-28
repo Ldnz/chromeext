@@ -23,6 +23,7 @@ export default class Popup {
     });
 
     this.bindAppEvents();
+    this.buildSettingsPage();
   }
 
   createMenu() {
@@ -186,12 +187,17 @@ export default class Popup {
     });
   };
 
+  buildSettingsPage() {
+    $("#go-to-tab").prop("checked", config('enableTabTransition'));
+  }
+
   bindAppEvents() {
     $(".settings-ico").click(() => {
       var appHeight = this.container.find('#app').height();
       this.container.find('#settings').css('height', appHeight);
       this.container.animate({ scrollLeft: this.container.width() }, 400);
     });
+
     $(".go-back").click(() => {
       this.container.animate({ scrollLeft: "-" + this.container.width() }, 400);
     });

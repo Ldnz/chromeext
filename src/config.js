@@ -15,6 +15,7 @@ export const MUTE = 'mute';
 
 export default function config(name = null) {
   var config = {
+    'enableTabTransition': localStorage.getItem('tab-transition') === 'true',
     'supported': {
       'music.yandex': {
         'class': YandexMusic,
