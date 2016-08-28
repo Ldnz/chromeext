@@ -1,6 +1,5 @@
 import YandexMusic from './players/YandexMusic'
 import YandexRadio from './players/YandexRadio'
-import NewVk from './players/NewVk'
 import Vk from './players/Vk'
 import Youtube from './players/Youtube'
 import SoundCloud from './players/SoundCloud'
@@ -24,10 +23,6 @@ export default function config(name = null) {
       'radio.yandex': {
         'class': YandexRadio,
         'actions': [PAUSE, PLAY, NEXT, MUTE]
-      },
-      'new.vk.com': {
-        'class': NewVk,
-        'actions': [PAUSE, PLAY, NEXT, PREV, MUTE]
       },
       'vk.com': {
         'class': Vk,
